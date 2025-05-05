@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { useNavigate } from "react-router-dom";
 
 // Имитация данных API
 const fetchDashboardData = () => {
@@ -32,6 +32,7 @@ const fetchDashboardData = () => {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState<{
     stats: { leads: number; sales: number; tasks: number; revenue: number };
@@ -53,6 +54,24 @@ const Index = () => {
     loadData();
   }, []);
 
+  // Обработчики переходов на страницы
+  const handleTabChange = (value: string) => {
+    switch (value) {
+      case "clients":
+        navigate("/clients");
+        break;
+      case "deals":
+        navigate("/deals");
+        break;
+      case "tasks":
+        navigate("/tasks");
+        break;
+      default:
+        // Остаемся на текущей странице для остальных вкладок
+        break;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 px-6 py-4">
@@ -72,7 +91,7 @@ const Index = () => {
       </header>
 
       <div className="container mx-auto py-6 px-4">
-        <Tabs defaultValue="dashboard" className="w-full">
+        <Tabs defaultValue="dashboard" className="w-full" onValueChange={handleTabChange}>
           <TabsList className="mb-6">
             <TabsTrigger value="dashboard">Дашборд</TabsTrigger>
             <TabsTrigger value="clients">Клиенты</TabsTrigger>
@@ -230,54 +249,15 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="clients">
-            <Card>
-              <CardHeader>
-                <CardTitle>Клиенты</CardTitle>
-                <CardDescription>
-                  Здесь будет отображаться список клиентов и управление ими
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center p-10 text-muted-foreground">
-                  <Icon name="Users" className="h-12 w-12 mx-auto mb-4" />
-                  <p>Функциональность раздела клиентов будет доступна в следующем обновлении</p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Содержимое будет заменено редиректом */}
           </TabsContent>
 
           <TabsContent value="deals">
-            <Card>
-              <CardHeader>
-                <CardTitle>Сделки</CardTitle>
-                <CardDescription>
-                  Здесь будет отображаться список сделок и управление ими
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center p-10 text-muted-foreground">
-                  <Icon name="BadgeCheck" className="h-12 w-12 mx-auto mb-4" />
-                  <p>Функциональность раздела сделок будет доступна в следующем обновлении</p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Содержимое будет заменено редиректом */}
           </TabsContent>
 
           <TabsContent value="tasks">
-            <Card>
-              <CardHeader>
-                <CardTitle>Задачи</CardTitle>
-                <CardDescription>
-                  Здесь будет отображаться список задач и управление ими
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center p-10 text-muted-foreground">
-                  <Icon name="ClipboardList" className="h-12 w-12 mx-auto mb-4" />
-                  <p>Функциональность раздела задач будет доступна в следующем обновлении</p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Содержимое будет заменено редиректом */}
           </TabsContent>
 
           <TabsContent value="settings">
@@ -318,7 +298,7 @@ const Index = () => {
                       </Button>
                     </div>
                   </div>
-                  
+                   
                   <div className="grid gap-3">
                     <label className="text-sm font-medium">Интеграции</label>
                     <div className="space-y-2">
